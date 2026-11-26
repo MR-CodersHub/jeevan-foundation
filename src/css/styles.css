@@ -70,12 +70,23 @@ button { font: inherit; }
   box-shadow: 0 12px 36px rgba(18, 38, 26, 0.1), 0 2px 6px rgba(0, 0, 0, 0.04);
 }
 .brand {
-  display: flex;
-  flex-direction: column;
+  display: inline-flex;
   align-items: center;
   line-height: 1;
   color: var(--forest);
-  min-width: 130px;
+  text-decoration: none;
+}
+.nav-logo {
+  height: 46px;
+  width: auto;
+  max-width: 145px;
+  object-fit: contain;
+  display: block;
+  transition: transform 0.25s ease, opacity 0.2s ease;
+}
+.brand:hover .nav-logo {
+  transform: scale(1.02);
+  opacity: 0.94;
 }
 .brand-name {
   font: 600 33px/0.9 var(--serif);
@@ -2452,9 +2463,21 @@ button { font: inherit; }
   align-items: start;
 }
 .brand-footer {
+  display: inline-block;
   color: white;
-  align-items: flex-start;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
+}
+.footer-logo {
+  height: 60px;
+  width: auto;
+  max-width: 175px;
+  object-fit: contain;
+  display: block;
+  transition: opacity 0.2s ease, transform 0.25s ease;
+}
+.brand-footer:hover .footer-logo {
+  opacity: 0.9;
+  transform: scale(1.02);
 }
 .site-footer p {
   font-size: 12.5px;
@@ -2637,6 +2660,8 @@ button { font: inherit; }
   .brand { align-items: flex-start; min-width: 0; }
   .brand-name { font-size: 26px; }
   .brand-sub { font-size: 7px; letter-spacing: 3px; margin-top: 3px; }
+  .nav-logo { height: 38px; max-width: 120px; }
+  .footer-logo { height: 50px; max-width: 150px; }
   .menu-toggle {
     display: block;
     margin-left: auto;

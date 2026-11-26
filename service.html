@@ -5,12 +5,210 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Explore Jeevan Foundation's core social initiatives: Seeds of Hope, Career Guidance, Broken Plates, and Community Programs.">
   <title>Our Initiatives | Jeevan Foundation</title>
+  <link rel="icon" href="./assets/images/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700&family=Oswald:wght@700;800;900&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./src/css/styles.css">
 
   <style>
+    /* ================================================================
+       INITIATIVES HERO — EDITORIAL MAXIMALISM (PHENOMENON STUDIO STYLE)
+       ================================================================ */
+    .about-maximalist-hero {
+      min-height: calc(100vh - 72px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 125px 24px 75px;
+      background: url(./assets/images/green-bg.png);
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .about-maximalist-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 50% 45%, rgba(201, 147, 82, 0.05) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .max-kicker-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 20px;
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--forest);
+      background: rgba(24, 61, 43, 0.06);
+      border: 1px solid rgba(24, 61, 43, 0.12);
+      border-radius: 999px;
+      margin-bottom: 30px;
+      z-index: 2;
+      transition: all 0.25s ease;
+    }
+
+    .max-kicker-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #e65c38;
+      display: inline-block;
+      box-shadow: 0 0 8px rgba(230, 92, 56, 0.6);
+      animation: max-dot-pulse 2s infinite ease-in-out;
+    }
+
+    @keyframes max-dot-pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.35); opacity: 0.7; }
+    }
+
+    .max-headline-stage {
+      width: 100%;
+      max-width: 1180px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .max-display-title {
+      font-family: 'Bebas Neue', 'Oswald', 'DM Sans', sans-serif;
+      font-size: clamp(8rem, 19vw, 20rem);
+      font-weight: 900;
+      line-height: 0.84;
+      letter-spacing: 0.025em;
+      text-transform: uppercase;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      width: 100%;
+      
+      /* Fallback for legacy browsers */
+      color: var(--forest);
+      
+      /* Image Knockout / Clipping */
+      background-image: url('./assets/images/about.png');
+      background-size: cover;
+      background-position: center 25%;
+      background-repeat: no-repeat;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      
+      /* Smooth interaction */
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease;
+    }
+
+    .max-display-title:hover {
+      transform: scale(1.015);
+      filter: contrast(1.05) brightness(1.03);
+    }
+
+    .max-text-line {
+      display: block;
+      width: 100%;
+      text-align: center;
+    }
+
+    /* Action Buttons */
+    .max-action-group {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 42px;
+      z-index: 2;
+      flex-wrap: wrap;
+    }
+
+    .btn-max-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 16px 36px;
+      border-radius: 999px;
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+    }
+
+    .btn-coral-solid {
+      background: var(--cream);
+      color: var(--forest2) !important;
+      border: 1.5px solid var(--cream);
+    }
+
+    .btn-coral-solid:hover {
+      background: var(--cream);
+      transform: translateY(-2px);
+    }
+
+    .btn-forest-outline {
+      background: transparent;
+      color: var(--ink) !important;
+      border: 1.5px solid var(--forest);
+    }
+
+    .btn-forest-outline:hover {
+      background: var(--forest);
+      color: #ffffff !important;
+      border-color: var(--ink);
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 900px) {
+      .about-maximalist-hero {
+        min-height: auto;
+        padding: 110px 20px 60px;
+      }
+      .max-display-title {
+        font-size: clamp(4rem, 18vw, 9rem);
+        line-height: 0.86;
+      }
+    }
+
+    @media (max-width: 580px) {
+      .about-maximalist-hero {
+        padding: 95px 16px 50px;
+      }
+      .max-display-title {
+        font-size: clamp(3.4rem, 20vw, 6.2rem);
+        line-height: 0.88;
+        letter-spacing: 0.015em;
+      }
+      .max-action-group {
+        width: 100%;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .btn-max-pill {
+        width: 100%;
+        max-width: 320px;
+      }
+    }
+
     /* ════════════════════════════════════════════════════════
        NARRATIVE QUOTE
     ════════════════════════════════════════════════════════ */
@@ -605,8 +803,7 @@
 <!-- Global Floating Header -->
 <header class="site-header">
   <a class="brand" href="index.html" aria-label="Jeevan Foundation home">
-    <span class="brand-name">Jeevan</span>
-    <span class="brand-sub">FOUNDATION</span>
+    <img class="nav-logo" src="./assets/images/nav-logo.png" alt="Jeevan Foundation" width="427" height="149">
   </a>
   <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
     <svg class="hamburger-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
@@ -624,30 +821,18 @@
 
 <main>
 
-  <!-- ── Section 1: Video Hero ──────────────────────────── -->
-  <section class="service-video-hero" id="service-hero">
-    <div class="service-hero-video-container" id="video-container">
-      <video
-        id="hero-video"
-        class="hero-fullscreen-video"
-        src="./assets/videos/initiative.mp4"
-        autoplay muted loop playsinline preload="auto"
-        aria-hidden="true">
-      </video>
-      <div class="video-overlay" id="video-overlay"></div>
+  <!-- ── Section 1: Maximalist Hero ────────────────────────── -->
+  <section class="about-maximalist-hero" id="hero">
+   
+    <div class="max-headline-stage">
+      <h1 class="max-display-title" aria-label="Voices United">
+        <span class="max-text-line">VOICES</span>
+        <span class="max-text-line">UNITED</span>
+      </h1>
     </div>
-    <div class="service-hero-content" id="hero-content">
-      <div class="section-kicker kicker-light">GRASSROOTS PROGRAMS / 01—03</div>
-      <h1 class="service-hero-title">Purpose Made<br><em>Practical.</em></h1>
-      <p class="service-hero-copy">We focus our energy on three interconnected pillars of community welfare: protecting the natural environment, equipping youth with career guidance, and serving warm meals with unconditional dignity.</p>
-      <div class="service-hero-actions">
-        <a class="button button-light button-pill" href="#projects">Explore Causes <span>↓</span></a>
-      </div>
+    <div class="max-action-group">
+      <a class="btn-max-pill btn-coral-solid" href="contact.html#volunteer">Become a Volunteer <span>↗</span></a>
     </div>
-    <a class="hero-scroll-prompt" href="#projects" aria-label="Scroll to initiatives">
-      <span>Scroll to explore</span>
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
-    </a>
   </section>
 
   <!-- ── Narrative Quote ────────────────────────────────── -->
@@ -831,20 +1016,20 @@
 
           <!-- 1. Background Warm Accent Discs (from reference infographic) -->
           <circle cx="212" cy="110" r="46" fill="var(--sage)" opacity="0.16" />
-          <circle cx="230" cy="125" r="24" fill="var(--accent-gold)" opacity="0.22" />
+          <circle cx="230" cy="125" r="24" fill="var(--forest2)" opacity="0.22" />
 
           <circle cx="457" cy="370" r="48" fill="var(--sage)" opacity="0.15" />
-          <circle cx="440" cy="385" r="26" fill="var(--accent-gold)" opacity="0.24" />
+          <circle cx="440" cy="385" r="26" fill="var(--forest2)" opacity="0.24" />
 
           <circle cx="702" cy="110" r="46" fill="var(--sage)" opacity="0.16" />
-          <circle cx="720" cy="125" r="24" fill="var(--accent-gold)" opacity="0.22" />
+          <circle cx="720" cy="125" r="24" fill="var(--forest2)" opacity="0.22" />
 
           <circle cx="948" cy="370" r="48" fill="var(--sage)" opacity="0.15" />
-          <circle cx="930" cy="385" r="26" fill="var(--accent-gold)" opacity="0.24" />
+          <circle cx="930" cy="385" r="26" fill="var(--forest2)" opacity="0.24" />
 
           <!-- Small accent dots -->
-          <circle cx="1186" cy="195" r="14" fill="var(--accent-gold)" opacity="0.85" />
-          <circle cx="35"   cy="60"  r="22" fill="var(--accent-gold)" opacity="0.28" />
+          <circle cx="1186" cy="195" r="14" fill="var(--forest2)" opacity="0.85" />
+          <circle cx="35"   cy="60"  r="22" fill="var(--forest2)" opacity="0.28" />
 
           <!-- 2. Continuous Winding Road Path -->
           <!--
@@ -1143,9 +1328,8 @@
 <!-- Global Footer -->
 <footer class="site-footer">
   <div>
-    <a class="brand brand-footer" href="index.html">
-      <span class="brand-name">Jeevan</span>
-      <span class="brand-sub">FOUNDATION</span>
+    <a class="brand brand-footer" href="index.html" aria-label="Jeevan Foundation home">
+      <img class="footer-logo" src="./assets/images/footer-logo.png" alt="Jeevan Foundation" width="666" height="375">
     </a>
     <p>A registered non-profit community initiative rooted in Avadi, Chennai. Working to build a greener, educated, and compassionate society where no one is left behind.</p>
   </div>

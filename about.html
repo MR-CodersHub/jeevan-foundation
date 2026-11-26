@@ -5,206 +5,459 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Learn about Jeevan Foundation's mission, team, and story of grassroots community service in Avadi, Chennai.">
   <title>Who We Are | About Jeevan Foundation</title>
+  <link rel="icon" href="./assets/images/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700&family=Oswald:wght@700;800;900&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./src/css/styles.css">
 
   <style>
-    /* ================================================================
-       ABOUT HERO — EDITORIAL MAXIMALISM (PHENOMENON STUDIO STYLE)
-       ================================================================ */
-    .about-maximalist-hero {
-      min-height: calc(100vh - 72px);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 125px 24px 75px;
-      background: url(./assets/images/green-bg.png);
+    /* ════════════════════════════════════════════════════════
+       SECTION 3: INTERACTIVE TEAM LINEUP (HOTSPOT PINS)
+       ════════════════════════════════════════════════════════ */
+    .team-interactive-section {
+      padding: 95px 4% 85px;
+      background: #ffffff;
       position: relative;
       overflow: hidden;
-      text-align: center;
+      border-top: 1px solid var(--line);
       border-bottom: 1px solid var(--line);
     }
 
-    .about-maximalist-hero::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: radial-gradient(circle at 50% 45%, rgba(201, 147, 82, 0.05) 0%, transparent 70%);
-      pointer-events: none;
+    .team-header-center {
+      text-align: center;
+      max-width: 780px;
+      margin: 0 auto 46px;
     }
 
-    .max-kicker-pill {
+    .team-title-serif {
+      font-family: var(--serif);
+      font-size: clamp(38px, 4.2vw, 54px);
+      font-weight: 600;
+      letter-spacing: -0.5px;
+      color: #18221c;
+      margin: 0 0 16px;
+      line-height: 1.15;
+    }
+
+    .team-subtitle {
+      font-family: var(--sans);
+      font-size: clamp(15px, 1.3vw, 17px);
+      line-height: 1.6;
+      color: #687168;
+      max-width: 620px;
+      margin: 0 auto;
+    }
+
+    .team-stage-wrap {
+      max-width: 1040px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .team-stage {
+      position: relative;
+      width: 100%;
+      user-select: none;
+    }
+
+    .team-lineup-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      filter: contrast(1.02);
+    }
+
+    /* Hotspot Pins */
+    .team-pin-hotspot {
+      position: absolute;
+      width: 28px;
+      height: 36px;
+      margin-left: -14px;
+      margin-top: -30px;
+      background: transparent;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      z-index: 10;
+      outline: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), z-index 0.1s ease;
+    }
+
+    .team-pin-hotspot:hover,
+    .team-pin-hotspot.is-active,
+    .team-pin-hotspot:focus-visible {
+      transform: scale(1.18);
+      z-index: 50;
+    }
+
+    .pin-marker-svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.25));
+      transition: filter 0.2s ease;
+    }
+
+    .team-pin-hotspot:hover .pin-marker-svg,
+    .team-pin-hotspot.is-active .pin-marker-svg {
+      filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.35));
+    }
+
+    /* Pulsing halo ring */
+    .pin-halo {
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--pin-color, #0096e6);
+      opacity: 0.45;
+      animation: pinHaloPulse 2.4s infinite ease-out;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    @keyframes pinHaloPulse {
+      0% { transform: scale(1); opacity: 0.55; }
+      70% { transform: scale(2.2); opacity: 0; }
+      100% { transform: scale(2.2); opacity: 0; }
+    }
+
+    /* Rotating plus icon inside pin */
+    .pin-plus-cross {
+      transform-origin: 12px 11px;
+      transition: transform 0.25s ease;
+    }
+
+    .team-pin-hotspot.is-active .pin-plus-cross {
+      transform: rotate(45deg);
+    }
+
+    /* Tooltip Popover */
+    .team-pin-tooltip {
+      position: absolute;
+      bottom: calc(100% + 14px);
+      width: 260px;
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(24, 61, 43, 0.12);
+      border-radius: 14px;
+      padding: 16px 18px;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.14), 0 2px 8px rgba(0, 0, 0, 0.06);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: translateY(10px) scale(0.96);
+      transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+                  visibility 0.25s;
+      z-index: 100;
+      text-align: left;
+    }
+
+    /* Tooltip Arrow */
+    .team-pin-tooltip::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      border: 7px solid transparent;
+      border-top-color: #ffffff;
+    }
+
+    /* Horizontal Alignment Classes */
+    .team-pin-tooltip.pos-left {
+      left: -20px;
+    }
+    .team-pin-tooltip.pos-left::after {
+      left: 27px;
+    }
+
+    .team-pin-tooltip.pos-center {
+      left: 50%;
+      transform: translateX(-50%) translateY(10px) scale(0.96);
+    }
+    .team-pin-tooltip.pos-center::after {
+      left: 50%;
+      margin-left: -7px;
+    }
+
+    .team-pin-tooltip.pos-right {
+      right: -20px;
+      left: auto;
+    }
+    .team-pin-tooltip.pos-right::after {
+      right: 27px;
+    }
+
+    /* Show Tooltip on Hover or Active */
+    .team-pin-hotspot:hover .team-pin-tooltip,
+    .team-pin-hotspot.is-active .team-pin-tooltip,
+    .team-pin-hotspot:focus-visible .team-pin-tooltip {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0) scale(1);
+    }
+    .team-pin-hotspot:hover .team-pin-tooltip.pos-center,
+    .team-pin-hotspot.is-active .team-pin-tooltip.pos-center,
+    .team-pin-hotspot:focus-visible .team-pin-tooltip.pos-center {
+      transform: translateX(-50%) translateY(0) scale(1);
+    }
+
+    /* Tooltip Content Typography */
+    .tooltip-tag {
+      display: inline-block;
+      font-family: var(--sans);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 999px;
+      margin-bottom: 8px;
+    }
+
+    .tooltip-name {
+      font-family: var(--serif);
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--forest);
+      margin: 0 0 3px;
+      line-height: 1.25;
+    }
+
+    .tooltip-role {
+      font-family: var(--sans);
+      font-size: 11.5px;
+      font-weight: 600;
+      color: #9c6e33;
+      letter-spacing: 0.3px;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+
+    .tooltip-bio {
+      font-family: var(--sans);
+      font-size: 12.5px;
+      line-height: 1.5;
+      color: #555e55;
+      margin: 0;
+    }
+
+    .team-bottom-cta {
+      text-align: center;
+      margin-top: 36px;
+    }
+
+    @media (max-width: 768px) {
+      .team-interactive-section {
+        padding: 70px 4% 60px;
+      }
+      .team-title-serif {
+        font-size: 32px;
+      }
+      .team-pin-tooltip {
+        width: 220px;
+        padding: 13px 15px;
+      }
+      .tooltip-name { font-size: 15px; }
+      .tooltip-bio { font-size: 11.5px; }
+    }
+
+    /* ════════════════════════════════════════════════════════
+       ABOUT FIRM / FOUNDATION SECTION (REFERENCE LAYOUT)
+       ════════════════════════════════════════════════════════ */
+    .about-firm-section {
+      padding: 105px 6% 100px;
+      background: var(--paper);
+      position: relative;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .about-firm-container {
+      max-width: 1220px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 68px;
+      align-items: center;
+    }
+
+    /* Left Column */
+    .about-firm-content {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .about-firm-badge {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      padding: 7px 20px;
+      justify-content: center;
+      padding: 6px 18px;
+      border-radius: 999px;
+      border: 1.5px solid rgba(24, 61, 43, 0.28);
       font-family: var(--sans);
       font-size: 11px;
       font-weight: 700;
-      letter-spacing: 2px;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
       color: var(--forest);
-      background: rgba(24, 61, 43, 0.06);
-      border: 1px solid rgba(24, 61, 43, 0.12);
-      border-radius: 999px;
-      margin-bottom: 30px;
-      z-index: 2;
-      transition: all 0.25s ease;
+      margin-bottom: 22px;
+      background: transparent;
+      transition: all 0.2s ease;
     }
 
-    .max-kicker-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #e65c38;
-      display: inline-block;
-      box-shadow: 0 0 8px rgba(230, 92, 56, 0.6);
-      animation: max-dot-pulse 2s infinite ease-in-out;
+    .about-firm-badge:hover {
+      border-color: var(--forest);
+      background: rgba(24, 61, 43, 0.04);
     }
 
-    @keyframes max-dot-pulse {
-      0%, 100% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.35); opacity: 0.7; }
-    }
-
-    .max-headline-stage {
-      width: 100%;
-      max-width: 1180px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      z-index: 2;
-    }
-
-    .max-display-title {
-      font-family: 'Bebas Neue', 'Oswald', 'DM Sans', sans-serif;
-    font-size: clamp(8rem, 19vw, 20rem);
-      font-weight: 900;
-      line-height: 0.84;
-      letter-spacing: 0.025em;
-      text-transform: uppercase;
-      text-align: center;
-      margin: 0;
-      padding: 0;
-      user-select: none;
-      width: 100%;
-      
-      /* Fallback for legacy browsers */
+    .about-firm-title {
+      font-family: var(--serif);
+      font-size: clamp(38px, 4.4vw, 56px);
+      font-weight: 600;
+      letter-spacing: -0.6px;
+      line-height: 1.12;
       color: var(--forest);
-      
-      /* Image Knockout / Clipping */
-      background-image: url('./assets/images/about.png');
-      background-size: cover;
-      background-position: center 25%;
-      background-repeat: no-repeat;
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      
-      /* Smooth interaction */
-      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease;
+      margin: 0 0 20px;
     }
 
-    .max-display-title:hover {
-      transform: scale(1.015);
-      filter: contrast(1.05) brightness(1.03);
+    .about-firm-title em {
+      font-style: italic;
+      font-weight: 400;
+      color: var(--forest2);
     }
 
-    .max-text-line {
-      display: block;
-      width: 100%;
-      text-align: center;
+    .about-firm-copy {
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--muted);
+      margin-bottom: 34px;
+      max-width: 530px;
     }
 
-    /* Action Buttons */
-    .max-action-group {
+    .about-firm-actions {
       display: flex;
       align-items: center;
-      justify-content: center;
       gap: 16px;
-      margin-top: 42px;
-      z-index: 2;
       flex-wrap: wrap;
     }
 
-    .btn-max-pill {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 16px 36px;
-      border-radius: 999px;
+    .about-firm-divider {
+      width: 100%;
+      max-width: 530px;
+      border: none;
+      border-top: 1px solid var(--line);
+      margin: 38px 0 32px;
+    }
+
+    /* Stats Row */
+    .about-firm-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      width: 100%;
+      max-width: 530px;
+    }
+
+    .about-stat-item .stat-num {
+      font-family: var(--sans);
+      font-size: clamp(34px, 3.4vw, 46px);
+      font-weight: 700;
+      color: var(--forest);
+      line-height: 1.1;
+      letter-spacing: -0.8px;
+      margin-bottom: 8px;
+    }
+
+    .about-stat-item .stat-desc {
       font-family: var(--sans);
       font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.8px;
-      text-transform: uppercase;
-      text-decoration: none;
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-      cursor: pointer;
+      line-height: 1.45;
+      color: var(--muted);
+      font-weight: 400;
     }
 
-    .btn-coral-solid {
-      background: var(--cream);
-      color: var(--forest2) !important;
-      border: 1.5px solid var(--cream);
+    /* Right Column (Portrait Card) */
+    .about-firm-visual {
+      position: relative;
+      width: 100%;
+      display: flex;
+      justify-content: center;
     }
 
-    .btn-coral-solid:hover {
-      background: var(--cream);
-      transform: translateY(-2px);
+    .about-firm-img-wrap {
+      position: relative;
+      width: 100%;
+      max-width: 520px;
+      border-radius: 34px;
+      overflow: hidden;
+      box-shadow: 0 20px 48px rgba(18, 38, 26, 0.1);
+      aspect-ratio: 4 / 4.4;
+      background: #e4e7e2;
     }
 
-    .btn-forest-outline {
-      background: transparent;
-      color: var(--ink) !important;
-      border: 1.5px solid var(--forest);
+    .about-firm-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 20%;
+      display: block;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .btn-forest-outline:hover {
-      background: var(--forest);
-      color: #ffffff !important;
-      border-color: var(--ink);
-      transform: translateY(-2px);
+    .about-firm-img-wrap:hover .about-firm-img {
+      transform: scale(1.03);
     }
 
-    @media (max-width: 900px) {
-      .about-maximalist-hero {
-        min-height: auto;
-        padding: 110px 20px 60px;
+    /* Responsive */
+    @media (max-width: 992px) {
+      .about-firm-section {
+        padding: 85px 6% 75px;
       }
-      .max-display-title {
-        font-size: clamp(4rem, 18vw, 9rem);
-        line-height: 0.86;
+      .about-firm-container {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+      .about-firm-content {
+        order: 1;
+      }
+      .about-firm-visual {
+        order: 2;
+      }
+      .about-firm-img-wrap {
+        max-width: 100%;
+        aspect-ratio: 4 / 3.6;
       }
     }
 
     @media (max-width: 580px) {
-      .about-maximalist-hero {
-        padding: 95px 16px 50px;
+      .about-firm-section {
+        padding: 65px 5% 55px;
       }
-      .max-display-title {
-        font-size: clamp(3.4rem, 20vw, 6.2rem);
-        line-height: 0.88;
-        letter-spacing: 0.015em;
+      .about-firm-stats {
+        grid-template-columns: 1fr;
+        gap: 20px;
       }
-      .max-action-group {
+      .about-firm-actions {
         width: 100%;
         flex-direction: column;
-        gap: 12px;
+        align-items: stretch;
       }
-      .btn-max-pill {
+      .about-firm-actions .button {
         width: 100%;
-        max-width: 320px;
+        justify-content: center;
+      }
+      .about-firm-img-wrap {
+        border-radius: 24px;
       }
     }
   </style>
@@ -214,8 +467,7 @@
 <!-- Global Floating Header -->
 <header class="site-header">
   <a class="brand" href="index.html" aria-label="Jeevan Foundation home">
-    <span class="brand-name">Jeevan</span>
-    <span class="brand-sub">FOUNDATION</span>
+    <img class="nav-logo" src="./assets/images/nav-logo.png" alt="Jeevan Foundation" width="427" height="149">
   </a>
   <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
     <svg class="hamburger-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
@@ -232,21 +484,80 @@
 </header>
 
 <main>
-  <!-- Section 1: Maximalist Hero -->
-  <section class="about-maximalist-hero" id="hero">
-   
-    <div class="max-headline-stage">
-      <h1 class="max-display-title" aria-label="Voices United">
-        <span class="max-text-line">VOICES</span>
-        <span class="max-text-line">UNITED</span>
-      </h1>
+  <!-- ── Section 1: Video Hero ──────────────────────────── -->
+  <section class="service-video-hero" id="service-hero">
+    <div class="service-hero-video-container" id="video-container">
+      <video
+        id="hero-video"
+        class="hero-fullscreen-video"
+        src="./assets/videos/initiative.mp4"
+        autoplay muted loop playsinline preload="auto"
+        aria-hidden="true">
+      </video>
+      <div class="video-overlay" id="video-overlay"></div>
     </div>
-    <div class="max-action-group">
-      <a class="btn-max-pill btn-coral-solid" href="contact.html#volunteer">Become a Volunteer <span>↗</span></a>
+    <div class="service-hero-content" id="hero-content">
+      <div class="section-kicker kicker-light">GRASSROOTS PROGRAMS / 01—03</div>
+      <h1 class="service-hero-title">Purpose Made<br><em>Practical.</em></h1>
+      <p class="service-hero-copy">We focus our energy on three interconnected pillars of community welfare: protecting the natural environment, equipping youth with career guidance, and serving warm meals with unconditional dignity.</p>
+      <div class="service-hero-actions">
+        <a class="button button-light button-pill" href="#about">Explore Causes <span>↓</span></a>
+      </div>
+    </div>
+    <a class="hero-scroll-prompt" href="#about" aria-label="Scroll to explore">
+      <span>Scroll to explore</span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
+    </a>
+  </section>
+
+  <!-- ── Section 2: About Us (Reference Split Layout) ────── -->
+  <section class="about-firm-section" id="about">
+    <div class="about-firm-container">
+      <!-- Left: Content -->
+      <div class="about-firm-content">
+        <span class="about-firm-badge">ABOUT US</span>
+        <h2 class="about-firm-title">About our <em>Foundation</em></h2>
+        <p class="about-firm-copy">
+          At our foundation, we pride ourselves on delivering tailored grassroots solutions that empower families and neighborhoods to thrive. With years of experience across community welfare, our dedicated team is committed to driving growth, environmental protection, and operational excellence.
+        </p>
+        <div class="about-firm-actions">
+          <a class="button button-dark button-pill" href="contact.html#volunteer">Get Started <span>→</span></a>
+          <a class="button button-outline button-pill" href="#purpose">Our Mission</a>
+        </div>
+
+        <hr class="about-firm-divider">
+
+        <!-- Stats Row -->
+        <div class="about-firm-stats">
+          <div class="about-stat-item">
+            <div class="stat-num">95%</div>
+            <div class="stat-desc">Complete community satisfaction</div>
+          </div>
+          <div class="about-stat-item">
+            <div class="stat-num">10+</div>
+            <div class="stat-desc">Innovation and grassroots insight</div>
+          </div>
+          <div class="about-stat-item">
+            <div class="stat-num">12k+</div>
+            <div class="stat-desc">Meals &amp; saplings nurtured</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Portrait Visual -->
+      <div class="about-firm-visual">
+        <div class="about-firm-img-wrap">
+          <img
+            class="about-firm-img"
+            src="./assets/images/about-hero.png"
+            alt="Leadership and dedication at Jeevan Foundation"
+            loading="lazy">
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- Section 2: Mission and Vision -->
+  <!-- Section 3: Mission and Vision -->
   <section class="section-wrap" id="purpose">
     <div class="section-kicker">PURPOSE &amp; ASPIRATIONS</div>
     <div class="mission-vision-grid">
@@ -266,7 +577,7 @@
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
         </div>
         <p class="eyebrow">OUR VISION</p>
-        <h3>A Self-Sustaining & Society.</h3>
+        <h3>A Compassionate Green Society.</h3>
         <p>We envision thriving, green, and resilient neighborhoods where environmental stewardship is second nature, every young person has equal access to future knowledge and mentors, and every vulnerable citizen is embraced with unconditional dignity and care.</p>
       </div>
     </div>
@@ -296,141 +607,157 @@
     </div>
   </section>
 
-  <!-- Section 3: Our Team -->
-  <section class="section-wrap section-tint" id="team">
-    <div class="section-heading">
-      <div>
-        <div class="section-kicker">THE PEOPLE BEHIND JEEVAN</div>
-        <h2>Guided by Empathy, <em>Driven by Action.</em></h2>
-      </div>
-      <a class="button button-dark button-pill" href="contact.html#volunteer">Join Our Team <span>↗</span></a>
-    </div>
-
-    <div class="team-grid">
-      <!-- Member 1 -->
-      <article class="team-card">
-        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=85" alt="Kavitha Raman - Founder & Community Director">
-        <div class="team-card-info">
-          <h3>Kavitha Raman</h3>
-          <span class="role">Founder &amp; Managing Trustee</span>
-          <p>Passionate about grassroots social work in Avadi, coordinating volunteer networks and ensuring initiatives directly reach families most in need.</p>
-        </div>
-      </article>
-
-      <!-- Member 2 -->
-      <article class="team-card">
-        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=85" alt="Dr. S. Sundaram - Environment Lead">
-        <div class="team-card-info">
-          <h3>Dr. S. Sundaram</h3>
-          <span class="role">Lead, Seeds of Hope</span>
-          <p>Botanist and environmental educator guiding our native sapling selections, soil preparation, and long-term tree nurture pledges.</p>
-        </div>
-      </article>
-
-      <!-- Member 3 -->
-      <article class="team-card">
-        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=85" alt="Priya Venkatesh - Career Guidance Coordinator">
-        <div class="team-card-info">
-          <h3>Priya Venkatesh</h3>
-          <span class="role">Youth Mentorship Lead</span>
-          <p>HR professional dedicated to connecting collegiate students and first-generation learners with industry counselors and entrance exam resources.</p>
-        </div>
-      </article>
-
-      <!-- Member 4 -->
-      <article class="team-card">
-        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=800&q=85" alt="M. Karthikeyan - Operations & Food Support">
-        <div class="team-card-info">
-          <h3>M. Karthikeyan</h3>
-          <span class="role">Lead, Broken Plates</span>
-          <p>Coordinates weekend kitchen logistics, ingredient sourcing, and dignified meal distributions across Avadi's bus stands and worker settlements.</p>
-        </div>
-      </article>
-
-      <!-- Member 5 -->
-      <article class="team-card">
-        <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=800&q=85" alt="Lakshmi Narayanan - Volunteer Engagement">
-        <div class="team-card-info">
-          <h3>Lakshmi Narayanan</h3>
-          <span class="role">Volunteer Coordinator</span>
-          <p>Welcomes new volunteers, schedules orientation drives, and fosters a collaborative community spirit across all weekend activities.</p>
-        </div>
-      </article>
-
-      <!-- Member 6 -->
-      <article class="team-card">
-        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=800&q=85" alt="Arun Prakash - Communications & Field Stories">
-        <div class="team-card-info">
-          <h3>Arun Prakash</h3>
-          <span class="role">Field Documentarian</span>
-          <p>Photographer and storyteller capturing real moments from our plantation sites, guidance classrooms, and food distribution drives.</p>
-        </div>
-      </article>
-    </div>
-  </section>
-
-  <!-- Section 4: Our Stories & Journey -->
-  <section class="section-wrap" id="journey">
-    <div style="max-width: 780px; margin: 0 auto; text-align: center;">
-      <div class="section-kicker">OUR JOURNEY</div>
-      <h2 style="font: 500 clamp(34px, 4vw, 50px)/1.15 var(--serif); color: var(--forest); margin-bottom: 16px;">
-        From a Small Neighborhood Effort to <em>Community Action.</em>
-      </h2>
-      <p style="color: var(--muted); font-size: 15px; line-height: 1.7;">
-        Jeevan Foundation began not as a large institution, but as a handful of friends and neighbors in Avadi who noticed unattended roadside patches, eager students without career direction, and elders struggling for a daily meal.
+  <!-- ════════════════════════════════════════════════════════
+       Section 3: Interactive Team Lineup (Reference Layout)
+       ════════════════════════════════════════════════════════ -->
+  <section class="team-interactive-section" id="team">
+    <div class="team-header-center">
+      <h2 class="team-title-serif">Meet Our Team</h2>
+      <p class="team-subtitle">
+        A dedicated circle of grassroots volunteers, educators, and environmental stewards.<br>
+        The compassionate driving force behind every Jeevan Foundation initiative!
       </p>
     </div>
 
-    <div class="timeline-wrap">
-      <!-- Milestone 1 -->
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="timeline-content">
-          <span class="timeline-year">2021 · THE SEED IS SOWN</span>
-          <h3>First Plantation Drive in Avadi</h3>
-          <p>A circle of ten volunteers planted 35 native saplings around an arid school boundary. What made it special was our pledge: every volunteer took ownership of a sapling until it developed deep roots. This laid the foundation for <strong>Seeds of Hope</strong>.</p>
-        </div>
+    <div class="team-stage-wrap">
+      <div class="team-stage" id="team-stage">
+        <!-- Main Lineup Photo -->
+        <img class="team-lineup-img" src="./assets/images/team.png" alt="Jeevan Foundation Core Leadership and Volunteers Team Lineup" width="878" height="362">
+
+        <!-- Hotspot Pin 1: Arun Prakash -->
+        <button class="team-pin-hotspot" style="left: 6.17%; top: 15%; --pin-color: #0096e6;" aria-label="Arun Prakash - Field Documentarian" aria-expanded="false" data-member="1">
+          <span class="pin-halo"></span>
+          <svg class="pin-marker-svg" viewBox="0 0 24 30" width="28" height="36">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 8.5 12 18 12 18s12-9.5 12-18c0-6.63-5.37-12-12-12z" fill="#0096e6" />
+            <circle cx="12" cy="11" r="5.5" fill="rgba(255, 255, 255, 0.28)" />
+            <g class="pin-plus-cross">
+              <line x1="12" y1="8" x2="12" y2="14" stroke="#ffffff" stroke-width="2" stroke-linecap="round" />
+              <line x1="9" y1="11" x2="15" y2="11" stroke="#ffffff" stroke-width="2" stroke-linecap="round" />
+            </g>
+          </svg>
+          <div class="team-pin-tooltip pos-left">
+            <span class="tooltip-tag" style="background: rgba(0, 150, 230, 0.12); color: #0077b6;">#Storytelling</span>
+            <h4 class="tooltip-name">Arun Prakash</h4>
+            <div class="tooltip-role">Field Documentarian</div>
+            <p class="tooltip-bio">Photographer and storyteller capturing real moments from our plantation sites, guidance classrooms, and food distribution drives.</p>
+          </div>
+        </button>
+
+        <!-- Hotspot Pin 2: Lakshmi Narayanan -->
+        <button class="team-pin-hotspot" style="left: 26.00%; top: 21%; --pin-color: #00a8e8;" aria-label="Lakshmi Narayanan - Volunteer Coordinator" aria-expanded="false" data-member="2">
+          <span class="pin-halo"></span>
+          <svg class="pin-marker-svg" viewBox="0 0 24 30" width="28" height="36">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 8.5 12 18 12 18s12-9.5 12-18c0-6.63-5.37-12-12-12z" fill="#00a8e8" />
+            <circle cx="12" cy="11" r="5.5" fill="rgba(255, 255, 255, 0.28)" />
+            <g class="pin-plus-cross">
+              <line x1="12" y1="8" x2="12" y2="14" stroke="#ffffff" stroke-width="2" stroke-linecap="round" />
+              <line x1="9" y1="11" x2="15" y2="11" stroke="#ffffff" stroke-width="2" stroke-linecap="round" />
+            </g>
+          </svg>
+          <div class="team-pin-tooltip pos-left">
+            <span class="tooltip-tag" style="background: rgba(0, 168, 232, 0.12); color: #0077b6;">#Volunteers</span>
+            <h4 class="tooltip-name">Lakshmi Narayanan</h4>
+            <div class="tooltip-role">Volunteer Coordinator</div>
+            <p class="tooltip-bio">Welcomes new volunteers, coordinates weekend orientation drives, and fosters a collaborative spirit across all our projects.</p>
+          </div>
+        </button>
+
+      
+
+        <!-- Hotspot Pin 4: Kavitha Raman -->
+        <button class="team-pin-hotspot" style="left: 44.50%; top: 40.70%; --pin-color: #00c2cb;" aria-label="Kavitha Raman - Founder & Managing Trustee" aria-expanded="false" data-member="4">
+          <span class="pin-halo"></span>
+          <svg class="pin-marker-svg" viewBox="0 0 24 30" width="28" height="36">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 8.5 12 18 12 18s12-9.5 12-18c0-6.63-5.37-12-12-12z" fill="#00c2cb" />
+            <circle cx="12" cy="11" r="5.5" fill="rgba(255, 255, 255, 0.28)" />
+            <g class="pin-plus-cross">
+              <line x1="12" y1="8" x2="12" y2="14" stroke="#ffffff" stroke-width="2" stroke-linecap="round" />
+              <line x1="9" y1="11" x2="15" y2="11" stroke="#ffffff" stroke-width="2" stroke-linecap="round" />
+            </g>
+          </svg>
+          <div class="team-pin-tooltip pos-center">
+            <span class="tooltip-tag" style="background: rgba(0, 194, 203, 0.14); color: #00818a;">#Founder</span>
+            <h4 class="tooltip-name">Kavitha Raman</h4>
+            <div class="tooltip-role">Founder &amp; Managing Trustee</div>
+            <p class="tooltip-bio">Passionate grassroots social worker in Avadi, coordinating volunteer networks and ensuring initiatives directly reach families most in need.</p>
+          </div>
+        </button>
+
+        <!-- Hotspot Pin 5: Dr. S. Sundaram -->
+        <button class="team-pin-hotspot" style="left: 45.71%; top: 26.24%; --pin-color: #00b894;" aria-label="Dr. S. Sundaram - Environment Lead" aria-expanded="false" data-member="5">
+          <span class="pin-halo"></span>
+          <svg class="pin-marker-svg" viewBox="0 0 24 30" width="28" height="36">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 8.5 12 18 12 18s12-9.5 12-18c0-6.63-5.37-12-12-12z" fill="#00b894" />
+            <circle cx="12" cy="11" r="5.5" fill="rgba(255, 255, 255, 0.28)" />
+            <g class="pin-plus-cross">
+              <line x1="12" y1="8" x2="12" y2="14" stroke="#ffffff" stroke-width="2" stroke-linecap="round" />
+              <line x1="9" y1="11" x2="15" y2="11" stroke="#ffffff" stroke-width="2" stroke-linecap="round" />
+            </g>
+          </svg>
+          <div class="team-pin-tooltip pos-center">
+            <span class="tooltip-tag" style="background: rgba(0, 184, 148, 0.14); color: #097969;">#SeedsOfHope</span>
+            <h4 class="tooltip-name">Dr. S. Sundaram</h4>
+            <div class="tooltip-role">Lead, Seeds of Hope</div>
+            <p class="tooltip-bio">Botanist and environmental educator guiding our native sapling selections, soil preparation, and long-term tree nurture pledges.</p>
+          </div>
+        </button>
+
+       
+
+        <!-- Hotspot Pin 7: Deepak Kumar -->
+        <button class="team-pin-hotspot" style="left: 77%; top: 20.18%; --pin-color: #27ae60;" aria-label="Deepak Kumar - Youth Mentor" aria-expanded="false" data-member="7">
+          <span class="pin-halo"></span>
+          <svg class="pin-marker-svg" viewBox="0 0 24 30" width="28" height="36">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 8.5 12 18 12 18s12-9.5 12-18c0-6.63-5.37-12-12-12z" fill="#27ae60" />
+            <circle cx="12" cy="11" r="5.5" fill="rgba(255, 255, 255, 0.28)" />
+            <g class="pin-plus-cross">
+              <line x1="12" y1="8" x2="12" y2="14" stroke="#ffffff" stroke-width="2" stroke-linecap="round" />
+              <line x1="9" y1="11" x2="15" y2="11" stroke="#ffffff" stroke-width="2" stroke-linecap="round" />
+            </g>
+          </svg>
+          <div class="team-pin-tooltip pos-right">
+            <span class="tooltip-tag" style="background: rgba(39, 174, 96, 0.14); color: #1e824c;">#Mentorship</span>
+            <h4 class="tooltip-name">Deepak Kumar</h4>
+            <div class="tooltip-role">Youth Mentor &amp; Counselor</div>
+            <p class="tooltip-bio">Conducts weekly aptitude sessions and digital literacy circles for secondary school students in Avadi.</p>
+          </div>
+        </button>
+
+  
+
+        <!-- Hotspot Pin 9: Suresh Mehra -->
+        <button class="team-pin-hotspot" style="left: 92.95%; top: 18%; --pin-color: #a8e063;" aria-label="Suresh Mehra - Ecology Specialist" aria-expanded="false" data-member="9">
+          <span class="pin-halo"></span>
+          <svg class="pin-marker-svg" viewBox="0 0 24 30" width="28" height="36">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 8.5 12 18 12 18s12-9.5 12-18c0-6.63-5.37-12-12-12z" fill="#75ba38" />
+            <circle cx="12" cy="11" r="5.5" fill="rgba(255, 255, 255, 0.28)" />
+            <g class="pin-plus-cross">
+              <line x1="12" y1="8" x2="12" y2="14" stroke="#ffffff" stroke-width="2" stroke-linecap="round" />
+              <line x1="9" y1="11" x2="15" y2="11" stroke="#ffffff" stroke-width="2" stroke-linecap="round" />
+            </g>
+          </svg>
+          <div class="team-pin-tooltip pos-right">
+            <span class="tooltip-tag" style="background: rgba(117, 186, 56, 0.16); color: #386908;">#UrbanForestry</span>
+            <h4 class="tooltip-name">Suresh Mehra</h4>
+            <div class="tooltip-role">Urban Forestry Specialist</div>
+            <p class="tooltip-bio">Oversees sapling survival rates, irrigation maintenance, and community bio-diversity partnerships across schools and open public areas.</p>
+          </div>
+        </button>
       </div>
 
-      <!-- Milestone 2 -->
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="timeline-content">
-          <span class="timeline-year">2022 · EXPANDING SUPPORT</span>
-          <h3>Launch of Broken Plates Dignity Meals</h3>
-          <p>Noticing daily wage earners and elderly citizens struggling during uncertain economic times, we initiated our community kitchen. We committed to serving freshly cooked, hot meals wrapped in banana leaves, served with unconditional respect and dignity.</p>
-        </div>
-      </div>
-
-      <!-- Milestone 3 -->
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="timeline-content">
-          <span class="timeline-year">2023 · EMPOWERING YOUTH</span>
-          <h3>Career Mentorship Circles in Local Schools</h3>
-          <p>We partnered with local educators to conduct weekend career exploration workshops for 10th and 12th standard students, bringing practicing engineers, nurses, lawyers, and civil servants to answer questions and mentor first-generation graduates.</p>
-        </div>
-      </div>
-
-      <!-- Milestone 4 -->
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="timeline-content">
-          <span class="timeline-year">TODAY &amp; BEYOND</span>
-          <h3>A Growing Family of Changemakers</h3>
-          <p>With over 150 registered volunteers and thousands of trees, meals, and mentored youth, Jeevan Foundation continues to prove that genuine social transformation begins with local commitment, kindness, and collective hands.</p>
-        </div>
+      <div class="team-bottom-cta">
+        <a class="button button-dark button-pill" href="contact.html#volunteer">Join Our Volunteer Family <span>↗</span></a>
       </div>
     </div>
   </section>
+
 </main>
 
 <!-- Global Footer -->
 <footer class="site-footer">
   <div>
-    <a class="brand brand-footer" href="index.html">
-      <span class="brand-name">Jeevan</span>
-      <span class="brand-sub">FOUNDATION</span>
+    <a class="brand brand-footer" href="index.html" aria-label="Jeevan Foundation home">
+      <img class="footer-logo" src="./assets/images/footer-logo.png" alt="Jeevan Foundation" width="666" height="375">
     </a>
     <p>A registered non-profit community initiative rooted in Avadi, Chennai. Working to build a greener, educated, and compassionate society where no one is left behind.</p>
   </div>
@@ -475,5 +802,45 @@
 </footer>
 
 <script src="./src/js/main.js"></script>
+<script>
+  // Interactive Team Hotspot Pins
+  document.addEventListener('DOMContentLoaded', () => {
+    const pins = document.querySelectorAll('.team-pin-hotspot');
+    if (!pins.length) return;
+
+    pins.forEach(pin => {
+      pin.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isActive = pin.classList.contains('is-active');
+        pins.forEach(p => {
+          p.classList.remove('is-active');
+          p.setAttribute('aria-expanded', 'false');
+        });
+        if (!isActive) {
+          pin.classList.add('is-active');
+          pin.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.team-pin-hotspot')) {
+        pins.forEach(p => {
+          p.classList.remove('is-active');
+          p.setAttribute('aria-expanded', 'false');
+        });
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        pins.forEach(p => {
+          p.classList.remove('is-active');
+          p.setAttribute('aria-expanded', 'false');
+        });
+      }
+    });
+  });
+</script>
 </body>
 </html>
