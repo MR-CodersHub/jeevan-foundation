@@ -125,7 +125,13 @@
           Your message has been received. Our volunteer coordinator will contact you shortly.
         </div>
 
-        <form id="contact-form" novalidate>
+        <!-- Live Server Error Banner -->
+        <div class="form-server-error-banner" role="alert">
+          <strong>Submission issue</strong><br>
+          <span class="error-text">There was a problem submitting your form. Please try again or reach out directly to contact@jeevanfoundation.org.</span>
+        </div>
+
+        <form id="contact-form" action="https://formspree.io/f/xdegbjew" method="POST" novalidate>
           <!-- Full Name -->
           <div class="form-group">
             <label for="name">Full Name <span class="required">*</span></label>

@@ -218,13 +218,15 @@ document.addEventListener("DOMContentLoaded", () => {
     startAutoSlide();
   }
 
-  // 9. Contact & Volunteer Form Validation & Feedback
+  // 9. Contact & Volunteer Form Validation & Feedback (Formspree AJAX Integration)
   const contactForm = document.querySelector("#contact-form");
   if (contactForm) {
     const successBanner = document.querySelector(".form-success-banner");
+    const errorBanner = document.querySelector(".form-server-error-banner");
     const submitBtn = contactForm.querySelector("button[type='submit']");
+    const defaultBtnHtml = submitBtn ? submitBtn.innerHTML : 'Send Message <span>→</span>';
 
-    contactForm.addEventListener("submit", (e) => {
+    contactForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       let isValid = true;
 
@@ -287,22 +289,62 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       if (isValid) {
+        // Reset previous banner states
+        if (successBanner) successBanner.classList.remove("visible");
+        if (errorBanner) errorBanner.classList.remove("visible");
+
         if (submitBtn) {
           submitBtn.disabled = true;
-          submitBtn.textContent = "Submitting message...";
+          submitBtn.innerHTML = "Sending message...";
         }
 
-        setTimeout(() => {
-          if (successBanner) {
-            successBanner.classList.add("visible");
-            successBanner.scrollIntoView({ behavior: "smooth", block: "center" });
+        const formData = new FormData(contactForm);
+
+        try {
+          const response = await fetch("https://formspree.io/f/xdegbjew", {
+            method: "POST",
+            body: formData,
+            headers: {
+              "Accept": "application/json"
+            }
+          });
+
+          if (response.ok) {
+            if (successBanner) {
+              successBanner.classList.add("visible");
+              successBanner.scrollIntoView({ behavior: "smooth", block: "center" });
+            }
+            contactForm.reset();
+          } else {
+            const data = await response.json();
+            let errorMsg = "There was an issue sending your message. Please try again.";
+            if (data && data.errors && data.errors.length > 0) {
+              errorMsg = data.errors.map(err => err.message).join(", ");
+            }
+            if (errorBanner) {
+              const errSpan = errorBanner.querySelector(".error-text");
+              if (errSpan) errSpan.textContent = errorMsg;
+              errorBanner.classList.add("visible");
+              errorBanner.scrollIntoView({ behavior: "smooth", block: "center" });
+            } else {
+              alert(errorMsg);
+            }
           }
-          contactForm.reset();
+        } catch (error) {
+          if (errorBanner) {
+            const errSpan = errorBanner.querySelector(".error-text");
+            if (errSpan) errSpan.textContent = "Network error. Please check your connection and try again.";
+            errorBanner.classList.add("visible");
+            errorBanner.scrollIntoView({ behavior: "smooth", block: "center" });
+          } else {
+            alert("Network error. Please check your connection and try again.");
+          }
+        } finally {
           if (submitBtn) {
             submitBtn.disabled = false;
-            submitBtn.textContent = "Send Message →";
+            submitBtn.innerHTML = defaultBtnHtml;
           }
-        }, 600);
+        }
       }
     });
 

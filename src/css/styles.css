@@ -2436,6 +2436,18 @@ button { font: inherit; }
   line-height: 1.5;
 }
 .form-success-banner.visible { display: block; }
+.form-server-error-banner {
+  display: none;
+  background: #fdf2f2;
+  border: 1.5px solid #e05252;
+  color: #9b1c1c;
+  padding: 18px 22px;
+  border-radius: 14px;
+  margin-bottom: 25px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.form-server-error-banner.visible { display: block; }
 .map-section {
   border-radius: 24px;
   overflow: hidden;
