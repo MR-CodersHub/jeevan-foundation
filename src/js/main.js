@@ -398,44 +398,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  document.addEventListener('DOMContentLoaded', () => {
-    if (typeof gsap !== 'undefined') {
-        gsap.registerPlugin(ScrollTrigger);
-    }
-    
-    initHorizonHero();
-    initHorizontalScroll();
-    initScrollReveal();
-    
-});
-
-/* ============================================================
-   HORIZON HERO — lightweight entrance (no mousemove parallax)
-   ============================================================ */
-function initHorizonHero() {
-    const leftSide = document.querySelector('.hero-side.left');
-    const rightSide = document.querySelector('.hero-side.right');
-    if (!leftSide || !rightSide) return;
-
-    if (typeof gsap === 'undefined') return;
-
-    const eyebrow = document.querySelector('.hero-eyebrow');
-    const title = document.querySelector('.hero-content-immersive h1');
-    const subtitle = document.querySelector('.hero-content-immersive p');
-    const ctas = document.querySelector('.hero-cta-group');
-    const scrollInd = document.querySelector('.scroll-down-indicator');
-
-    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-    tl.to([leftSide, rightSide], { x: 0, duration: 1.4, delay: 0.2 })
-        .to(eyebrow, { opacity: 1, y: 0, duration: 0.7 }, '-=0.5')
-        .to(title, { opacity: 1, y: 0, duration: 0.9 }, '-=0.5')
-        .to(subtitle, { opacity: 1, y: 0, duration: 0.7 }, '-=0.5')
-        .to(ctas, { opacity: 1, y: 0, duration: 0.6 }, '-=0.4')
-        .to(scrollInd, { opacity: 1, duration: 0.5 }, '-=0.3');
-}
-
-
-  // ─────────────────────────────────────────────────────────────────────────
   // 11. Birthday Wishes (Single Spotlight Frame — Reference Layout)
   // (Static single profile frame; carousel rotation disabled per design requirement)
 
@@ -494,19 +456,3 @@ function initHorizonHero() {
     document.addEventListener("webkitfullscreenchange", updateFullscreenState);
   }
 });
-
-/* ============================================================
-   SCROLL REVEAL — IntersectionObserver only (no GSAP overhead)
-   ============================================================ */
-function initScrollReveal() {
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-            if (e.isIntersecting) {
-                e.target.classList.add('active');
-                observer.unobserve(e.target);
-            }
-        });
-    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-}

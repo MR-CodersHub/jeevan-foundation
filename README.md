@@ -4,9 +4,10 @@ A responsive, four-page static website for presenting the foundation's mission, 
 
 ## Pages
 - `index.html` — Home
-- `initiatives.html` — Seeds of Hope, Career Guidance and Broken Plates
-- `impact.html` — Filterable photo exhibition with image detail modal
-- `about.html` — Foundation story and contact information
+- `about.html` — About Us (Story, Mission, Team)
+- `service.html` — Our Initiatives (Seeds of Hope, Career Guidance, Broken Plates, Birthday Celebrations)
+- `blog.html` — Our Impact (Editorial Stories & Filterable Photo Exhibition)
+- `contact.html` — Contact & Volunteer Portal (Formspree Integration, Avadi Office Location)
 
 ## Run locally
 No build step or package installation is required. Open `index.html` in a browser, or run a local server from this folder:
